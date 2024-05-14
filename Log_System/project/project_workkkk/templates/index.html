@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Query Interface</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Log Query Interface</h1>
+        <form id="logQueryForm">
+            <label for="level">Level:</label>
+            <input type="text" id="level" name="level">
+            <label for="logString">Log String:</label>
+            <input type="text" id="logString" name="logString">
+            <label for="timestamp">Timestamp:</label>
+            <input type="text" id="timestamp" name="timestamp" placeholder="YYYY-MM-DDTHH:MM:SSZ">
+            <label for="source">Source:</label>
+            <input type="text" id="source" name="source">
+            <button type="submit">Search</button>
+            <button type="button" id="filterButton">Upload json Data ?</button>
+        </form>
+        
+    </div>
+
+    <h1>Log File Data</h1>
+    <div id="logContent"></div>
+    
+    <script>
+
+        document.getElementById('filterButton').addEventListener('click', function() {
+            window.location.href = 'http://127.0.0.1:5000/upload';
+        });
+
+
+        // Get JSON data from Flask and display it
+        const jsonData = {{ data | tojson }};
+        console.log(jsonData)
+
+        const logContentDiv = document.getElementById('logContent');
+
+        // Check if jsonData is an empty list
+        if (Array.isArray(jsonData) && jsonData.length === 0) {
+            // If jsonData is an empty list, don't display anything
+        } else {
+            // Create a pre element to display formatted JSON
+            const preElement = document.createElement('pre');
+            preElement.textContent = JSON.stringify(jsonData, null, 2); // Format JSON with indentation
+            logContentDiv.appendChild(preElement);
+        }
+    </script>
+
+</body>
+</html>

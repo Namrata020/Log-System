@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Input</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Data Input</h1>
+        <form id="logQueryForm">
+            <label for="level">Level:</label>
+            <input type="text" id="level" name="level">
+            <label for="logString">Log String:</label>
+            <input type="text" id="logString" name="logString">
+            <button type="submit" id = "submit">Submit</button>
+            <button type="button" id="filterButton">Go For Filter Log File</button>
+        </form>
+        
+    </div>
+
+    <script>
+        document.getElementById('submit').addEventListener('click', function() {
+            // Get the values of level and logString input fields
+            var levelValue = document.getElementById('level').value;
+            var logStringValue = document.getElementById('logString').value;
+            
+            // Check if either of the fields is empty
+            if (!levelValue.trim() || !logStringValue.trim()) {
+                alert('Please fill in both Level and Log String fields.');
+                return; // Stop further execution if fields are empty
+            }
+            
+            // Redirect to the next page if both fields are filled
+            
+        });
+
+        document.getElementById('filterButton').addEventListener('click', function() {
+          
+            window.location.href = 'http://127.0.0.1:5000/';
+        });
+    </script>
+
+    
+
+</body>
+</html>
